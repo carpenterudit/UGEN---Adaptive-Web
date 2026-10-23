@@ -3,13 +3,23 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker, Session
 from app.core.config import settings
 
-# For SQLite on Windows, use standard sqlite:///./upgw.db
+# Normalize database URL
 db_url = settings.DATABASE_URL.replace("+aiosqlite", "")
+if db_url.startswith("postgres://"):
+    db_url = db_url.replace("postgres://", "postgresql://", 1)
+
+engine_kwargs = {}
+if "sqlite" in db_url:
+    engine_kwargs["connect_args"] = {"check_same_thread": False}
+else:
+    # Supabase PostgreSQL connection pool handling
+    engine_kwargs["pool_pre_ping"] = True
+    engine_kwargs["pool_recycle"] = 300
 
 engine = create_engine(
     db_url,
-    connect_args={"check_same_thread": False} if "sqlite" in db_url else {},
-    echo=False
+    echo=False,
+    **engine_kwargs
 )
 
 SessionLocal = sessionmaker(

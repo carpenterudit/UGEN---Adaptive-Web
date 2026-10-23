@@ -46,18 +46,29 @@ The included `frontend/vercel.json` and root `vercel.json` route all client navi
 
 ---
 
-## 3. Backend Deployment (Render / Railway / Fly.io)
+## 3. Backend Deployment (Render Web Service)
 
-### Recommended: Render Web Service
+### Option A: 1-Click Render Blueprint (Recommended)
+Because the repository includes `render.yaml`, you can deploy directly via Render Blueprints:
+1. Log in to [Render Dashboard](https://dashboard.render.com/).
+2. Click **New +** → **Blueprint**.
+3. Select `carpenterudit/UGEN---Adaptive-Web`.
+4. Render will automatically read `render.yaml`, configure `rootDir: backend`, generate cryptographically secure secrets (`SECRET_KEY`), and set up the health check (`/api/v1/health`).
+5. Fill in your `DATABASE_URL` (Supabase PostgreSQL) and `FRONTEND_URL` (Vercel domain).
+6. Click **Apply**.
 
-1. Create a new **Web Service** on [Render](https://render.com).
+### Option B: Manual Web Service
+1. On [Render](https://dashboard.render.com/), click **New +** → **Web Service**.
 2. Connect `carpenterudit/UGEN---Adaptive-Web`.
 3. Configure settings:
+   - **Name**: `ugen-backend`
    - **Root Directory**: `backend`
-   - **Environment**: `Python 3`
+   - **Runtime**: `Python 3`
    - **Build Command**: `pip install -r requirements.txt`
    - **Start Command**: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-4. Set Environment Variables (see Section 5 below).
+   - **Health Check Path**: `/api/v1/health`
+4. In **Environment Variables**, configure the variables from Section 5.
+5. Click **Create Web Service**.
 
 ---
 

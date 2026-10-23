@@ -2,7 +2,11 @@
  * UPGW API Client Service
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/api/v1';
+const rawUrl = import.meta.env.VITE_API_BASE_URL || import.meta.env.VITE_API_URL || '';
+// In development, fallback to localhost if not specified; in production, use rawUrl or relative
+export const API_BASE = rawUrl
+  ? (rawUrl.endsWith('/api/v1') ? rawUrl : `${rawUrl.replace(/\/+$/, '')}/api/v1`)
+  : (import.meta.env.DEV ? 'http://127.0.0.1:8000/api/v1' : '/api/v1');
 
 async function request(endpoint, options = {}) {
   const url = `${API_BASE}${endpoint}`;
