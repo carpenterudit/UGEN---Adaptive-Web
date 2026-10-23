@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UPGW Personalizer</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <!-- Header -->
+    <header class="popup-header">
+      <div class="logo">
+        <span class="logo-icon">✨</span>
+        <span class="logo-text">UPGW Web</span>
+      </div>
+      <span class="badge" id="page-status">Ready</span>
+    </header>
+
+    <!-- Page Context -->
+    <div class="page-context">
+      <div class="page-title-label">Target Page:</div>
+      <div class="page-title" id="page-title">Loading...</div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <button class="quick-btn" data-prompt="Increase text size for better readability">🔍 Bigger Text</button>
+      <button class="quick-btn" data-prompt="Apply dark theme">🌙 Dark Mode</button>
+      <button class="quick-btn" data-prompt="Apply warm sepia background">📜 Sepia</button>
+      <button class="quick-btn" data-prompt="Highlight important headings and keywords">💡 Highlight</button>
+      <button class="quick-btn" data-prompt="Simplify layout and dim sidebars">🧹 Simplify</button>
+      <button class="quick-btn" data-prompt="Add reader assistant panel">📖 Reader</button>
+    </div>
+
+    <!-- Custom Prompt Input -->
+    <div class="prompt-box">
+      <textarea id="prompt-input" rows="2" placeholder="e.g. 'Make font larger and apply green theme'"></textarea>
+      <button id="plan-btn" class="primary-btn">Preview Changes</button>
+    </div>
+
+    <!-- Proposed Operations Preview -->
+    <div class="plan-preview" id="plan-preview" style="display: none;">
+      <h4>Proposed Changes</h4>
+      <div id="plan-explanation" class="plan-explanation"></div>
+      <ul id="operations-list" class="operations-list"></ul>
+      <div class="plan-actions">
+        <button id="apply-btn" class="success-btn">Apply Now</button>
+        <button id="cancel-plan-btn" class="secondary-btn">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Active Status & Restore -->
+    <div class="status-box" id="status-box">
+      <span id="applied-count-text">0 changes applied</span>
+      <button id="restore-btn" class="restore-btn">↺ Restore Original</button>
+    </div>
+
+    <!-- Feedback / Notifications -->
+    <div id="feedback" class="feedback"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
