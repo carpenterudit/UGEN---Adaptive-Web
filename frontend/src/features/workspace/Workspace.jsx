@@ -53,8 +53,8 @@ export function Workspace({
             onClick={() => setViewMode('preview')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               viewMode === 'preview'
-                ? 'bg-gradient-to-r from-neon-rose to-[#E61980] text-white shadow-sm shadow-neon-rose/20'
-                : 'text-slate-400 hover:text-white hover:bg-surface-hover'
+                ? 'bg-[#EAAA00] text-[#100D12] font-bold shadow-sm shadow-[#EAAA00]/25'
+                : 'text-[#BDB3C1] hover:text-white hover:bg-[#2D2333]'
             }`}
           >
             <Eye className="w-3.5 h-3.5" />
@@ -64,8 +64,8 @@ export function Workspace({
             onClick={() => setViewMode('json')}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
               viewMode === 'json'
-                ? 'bg-cerulean text-white shadow-sm shadow-cerulean/20'
-                : 'text-slate-400 hover:text-white hover:bg-surface-hover'
+                ? 'bg-[#3A0F34] text-[#DDE3E8] border border-[#DDE3E8]/20 font-bold shadow-sm'
+                : 'text-[#BDB3C1] hover:text-white hover:bg-[#2D2333]'
             }`}
           >
             <Code2 className="w-3.5 h-3.5" />

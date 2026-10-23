@@ -55,13 +55,13 @@ export function ChatInput({ onSendMessage, isLoading, placeholder = "Describe th
         <button
           type="submit"
           disabled={!text.trim() || isLoading}
-          className="p-2.5 rounded-xl bg-neon-rose hover:bg-neon-rose-600 disabled:opacity-40 disabled:hover:bg-neon-rose text-white transition-all duration-150 flex-shrink-0 cursor-pointer shadow-md shadow-neon-rose/25 active:scale-95 flex items-center justify-center"
+          className="p-2.5 rounded-xl bg-[#EAAA00] hover:bg-[#D49A00] disabled:opacity-30 disabled:hover:bg-[#EAAA00] text-[#100D12] transition-all duration-150 flex-shrink-0 cursor-pointer shadow-md shadow-[#EAAA00]/25 active:scale-95 flex items-center justify-center font-bold"
           title="Send message (Enter)"
         >
           {isLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin" />
+            <Loader2 className="w-4 h-4 animate-spin text-[#100D12]" />
           ) : (
-            <Send className="w-4 h-4" />
+            <Send className="w-4 h-4 text-[#100D12]" />
           )}
         </button>
       </div>

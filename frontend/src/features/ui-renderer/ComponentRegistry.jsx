@@ -109,7 +109,7 @@ export const ComponentRegistry = {
         <button
           type={isReset ? "reset" : "button"}
           onClick={handleClick}
-          style={{ backgroundColor: theme?.primary || '#FF2D95' }}
+          style={{ backgroundColor: theme?.primary || '#EAAA00' }}
           className={`${baseClasses} text-white hover:opacity-90 hover:shadow-glow-rose/30 focus:ring-2 focus:ring-offset-2 focus:ring-neon-rose focus:ring-offset-jet-black`}
         >
           {renderIcon(iconName)}
@@ -552,7 +552,7 @@ export const ComponentRegistry = {
               <div
                 style={{
                   height: `${h}%`,
-                  backgroundColor: i === 4 ? '#FF2D95' : '#007BA7',
+                  backgroundColor: i === 4 ? '#EAAA00' : '#3A0F34',
                   opacity: i === 4 ? 1 : 0.75
                 }}
                 className="w-full rounded-t-md transition-all duration-300 group-hover:opacity-100 group-hover:scale-y-[1.02] transform origin-bottom shadow-sm shadow-black"

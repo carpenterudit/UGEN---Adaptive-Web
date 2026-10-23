@@ -26,7 +26,7 @@ export function UIRenderer({
   const activePageId = currentPageId || spec.current_page_id || spec.pages[0].id;
   const activePage = spec.pages.find(p => p.id === activePageId) || spec.pages[0];
 
-  const theme = spec.theme || { mode: 'dark', primary: '#FF2D95', secondary: '#007BA7' };
+  const theme = spec.theme || { mode: 'dark', primary: '#EAAA00', secondary: '#3A0F34' };
 
   const setFormValue = (compId, value) => {
     setFormStates(prev => ({ ...prev, [compId]: value }));
@@ -106,7 +106,7 @@ export function UIRenderer({
   return (
     <div
       style={{
-        '--primary-theme': theme.primary || '#FF2D95',
+        '--primary-theme': theme.primary || '#EAAA00',
       }}
       className="min-h-full w-full p-6 sm:p-10 transition-colors duration-300 text-slate-100"
     >
