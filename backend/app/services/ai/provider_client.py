@@ -130,7 +130,8 @@ class ProviderClient:
             return parsed
 
     async def _call_google(self, prompt: str, current_spec, project_id: str, history) -> dict:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={settings.GOOGLE_API_KEY}"
+        model = settings.AI_MODEL if (settings.AI_MODEL and "gemini" in settings.AI_MODEL) else "gemini-3.8-flash"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={settings.GOOGLE_API_KEY}"
         user_content = f"{SYSTEM_PROMPT}\n\nUser Request: {prompt}\nProject ID: {project_id}"
         if current_spec:
             user_content += f"\nCurrent UI Spec JSON:\n{json.dumps(current_spec.model_dump())}"
