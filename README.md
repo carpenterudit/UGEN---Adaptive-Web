@@ -10,6 +10,7 @@
 ![React](https://img.shields.io/badge/React-18.3-61dafb.svg)
 ![Vite](https://img.shields.io/badge/Vite-5.4-646cff.svg)
 ![Vercel](https://img.shields.io/badge/Vercel-Deployment--Ready-black.svg)
+![Netlify](https://img.shields.io/badge/Netlify-Deployment--Ready-00C7B7.svg)
 ![Extension](https://img.shields.io/badge/Chrome_MV3-Ready-success.svg)
 
 ---

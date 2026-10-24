@@ -46,6 +46,37 @@ The included `frontend/vercel.json` and root `vercel.json` route all client navi
 
 ---
 
+## 2B. Frontend Deployment to Netlify
+
+### Option A: Automatic Git Deployment (Recommended)
+
+1. Log in to your [Netlify Dashboard](https://app.netlify.com).
+2. Click **Add new site** → **Import an existing project**.
+3. Select **GitHub** and authorize Netlify.
+4. Choose the repository: `carpenterudit/UGEN---Adaptive-Web`.
+5. Netlify will automatically detect `netlify.toml` from the repository root:
+   - **Base directory**: `frontend`
+   - **Build command**: `npm run build`
+   - **Publish directory**: `dist` (relative to base)
+6. In **Environment Variables** (Site configuration > Environment variables), optionally add:
+   - `VITE_API_URL`: Your live production backend URL (e.g. `https://ugen-backend.onrender.com/api/v1`).
+     *(Note: If left unset, the frontend automatically activates the resilient client-side generative engine!)*
+7. Click **Deploy UGEN — Adaptive Web**.
+
+### Option B: Netlify CLI
+
+```bash
+# From project root:
+npx netlify-cli login
+npx netlify-cli init
+npx netlify-cli deploy --prod
+```
+
+### SPA Routing & Cache Configuration
+Both `netlify.toml` (root and `frontend/`) and `frontend/public/_redirects` define the `/* /index.html 200` rewrite rule, ensuring zero 404s on deep-links or page reloads, accompanied by immutable caching for hashed asset bundles.
+
+---
+
 ## 3. Backend Deployment (Render Web Service)
 
 ### Option A: 1-Click Render Blueprint (Recommended)
