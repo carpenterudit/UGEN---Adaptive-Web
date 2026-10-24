@@ -15,9 +15,9 @@ export function UIRenderer({
 
   if (!spec || !spec.pages || spec.pages.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-full p-8 text-center text-slate-500">
-        <p className="text-sm">No UI specification available.</p>
-        <p className="text-xs text-slate-600 mt-1">Submit a prompt in the chat to generate a functional interface.</p>
+      <div className="flex flex-col items-center justify-center h-full p-8 text-center text-[#BDB3C1]">
+        <p className="text-sm font-semibold">No UI specification available.</p>
+        <p className="text-xs text-[#BDB3C1]/60 mt-1">Submit a prompt in the chat to generate a functional interface.</p>
       </div>
     );
   }
@@ -65,12 +65,15 @@ export function UIRenderer({
   const renderComponent = (comp, context = {}) => {
     if (!comp || comp.hidden) return null;
 
-    const Component = ComponentRegistry[comp.type];
+    const compType = comp.type || '';
+    const hyphenated = compType.replace(/_/g, '-');
+    const underscored = compType.replace(/-/g, '_');
+    const Component = ComponentRegistry[compType] || ComponentRegistry[hyphenated] || ComponentRegistry[underscored];
 
     if (!Component) {
       return (
-        <div key={comp.id} className="p-3 my-2 border border-dashed border-border-charcoal rounded-xl bg-surface-card text-xs text-slate-400 flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 flex-shrink-0 text-cerulean-400" />
+        <div key={comp.id} className="p-3 my-2 border border-dashed border-[#DDE3E8]/20 rounded-xl bg-[#19141C] text-xs text-[#BDB3C1] flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 flex-shrink-0 text-[#EAAA00]" />
           <span>Unknown component type: <code>{comp.type}</code> (omitted safely)</span>
         </div>
       );
@@ -100,7 +103,7 @@ export function UIRenderer({
     );
   };
 
-  const isAuthLayout = activePage.layout === 'auth';
+  const isAuthLayout = activePage.layout === 'auth' || activePage.layout === 'form';
   const isTwoColLayout = activePage.layout === 'two-column';
 
   return (
@@ -108,20 +111,20 @@ export function UIRenderer({
       style={{
         '--primary-theme': theme.primary || '#EAAA00',
       }}
-      className="min-h-full w-full p-6 sm:p-10 transition-colors duration-300 text-slate-100"
+      className="min-h-full w-full p-4 sm:p-8 transition-colors duration-300 text-[#F4F0F5]"
     >
       {/* Toast Notification */}
       {toastMessage && (
-        <div className="fixed top-5 right-5 z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-surface-card border border-cerulean/50 text-white shadow-glow-blue/20 shadow-xl text-xs font-semibold backdrop-blur-xl animate-bounce">
-          <CheckCircle className="w-4 h-4 text-neon-rose flex-shrink-0" />
+        <div className="fixed top-5 right-5 z-50 flex items-center gap-2.5 px-4 py-3 rounded-2xl bg-[#19141C] border border-[#EAAA00]/50 text-white shadow-2xl text-xs font-semibold backdrop-blur-xl animate-bounce">
+          <CheckCircle className="w-4 h-4 text-[#EAAA00] flex-shrink-0" />
           <span>{toastMessage}</span>
         </div>
       )}
 
-      {/* Auth Layout Wrapper */}
+      {/* Layout Rendering */}
       {isAuthLayout ? (
-        <div className="flex flex-col items-center justify-center min-h-[75vh]">
-          <div className="w-full max-w-md">
+        <div className="flex flex-col items-center justify-center min-h-[70vh] py-8">
+          <div className="w-full max-w-md space-y-4">
             {activePage.components.map(comp => renderComponent(comp))}
           </div>
         </div>
@@ -130,7 +133,7 @@ export function UIRenderer({
           {activePage.components.map(comp => renderComponent(comp))}
         </div>
       ) : (
-        <div className="max-w-4xl mx-auto space-y-4">
+        <div className="max-w-6xl mx-auto space-y-6">
           {activePage.components.map(comp => renderComponent(comp))}
         </div>
       )}
@@ -139,6 +142,7 @@ export function UIRenderer({
 }
 
 function findComponent(components, id) {
+  if (!components || !Array.isArray(components)) return null;
   for (const c of components) {
     if (c.id === id) return c;
     if (c.children) {

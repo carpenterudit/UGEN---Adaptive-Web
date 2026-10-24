@@ -42,6 +42,10 @@ class DemoGenerator:
             (r"two.?col|2.?col|multi.?col", self._two_column_layout),
             (r"responsive|mobile.?friend", self._make_responsive),
             (r"full.?width", self._full_width_button),
+            (r"furniture|living.?room|decor|chair|table", self._furniture_store),
+            (r"portfolio|3d.?rotating|cinematic|sculpture", self._cinematic_portfolio),
+            (r"restaurant|dining|menu|booking|reservation|bistro|cafe", self._restaurant_booking),
+            (r"futuristic|product.?landing|quantum|gadget", self._futuristic_landing),
             (r"terms.*(condition|service)|checkbox", self._add_terms_checkbox),
         ]
 
@@ -511,6 +515,111 @@ class DemoGenerator:
                     ))
                     return {"operation_type": "ADD_COMPONENT", "ui_spec": current_spec.model_dump(), "explanation": "I've added a Terms of Service and Privacy Policy checkbox."}
         return {"operation_type": "EXPLAIN_REQUEST", "ui_spec": current_spec.model_dump(), "explanation": "No form found."}
+
+    async def _furniture_store(self, prompt: str, current_spec, project_id: str) -> dict:
+        spec = UISpecification(
+            project_id=project_id,
+            title="KROMA — Architectural Furniture & Modern Living",
+            theme=ThemeSpec(mode="dark", primary="#EAAA00", secondary="#3A0F34"),
+            pages=[PageSpec(
+                id="furniture-catalog",
+                title="Curated Living",
+                layout="grid",
+                components=[
+                    ComponentSpec(id="f-nav", type="navigation", props={"title": "KROMA FURNITURE", "items": [{"label": "3D Inspection", "page_id": "furniture-catalog", "icon": "compass"}, {"label": "Living Room", "page_id": "furniture-catalog", "icon": "home"}, {"label": "Cart", "page_id": "furniture-catalog", "icon": "shopping-bag"}]}),
+                    ComponentSpec(id="f-hero", type="hero-banner", props={"badge": "Architectural Edition", "title": "Sculptural Living & Timeless Craft", "subtitle": "Hand-jointed European white oak, bouclé textiles, and cast bronze hardware.", "ctaLabel": "Inspect in 3D"}),
+                    ComponentSpec(id="f-3d", type="scene-3d", props={"model": "furniture", "height": 400, "title": "Bauhaus Lounge Chair 3D Model", "subtitle": "Interactive WebGL orbit view • Drag to rotate", "accentColor": "#EAAA00"}),
+                    ComponentSpec(id="f-filter", type="filter-bar", props={"filters": ["All Pieces", "Lounge Chairs", "Solid Oak Tables", "Lighting", "Storage"]}),
+                    ComponentSpec(id="f-grid", type="grid", props={"columns": 3}, children=[
+                        ComponentSpec(id="p1", type="product-card", props={"title": "Minimalist Bouclé Lounge Chair", "price": "$890", "category": "Living Room", "rating": 4.9, "badge": "Best Seller", "image": "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?w=600&auto=format&fit=crop&q=80"}),
+                        ComponentSpec(id="p2", type="product-card", props={"title": "Solid Oak Dining Table", "price": "$1,450", "category": "Dining", "rating": 4.95, "badge": "Handmade", "image": "https://images.unsplash.com/photo-1577140917170-285929fb55b7?w=600&auto=format&fit=crop&q=80"}),
+                        ComponentSpec(id="p3", type="product-card", props={"title": "Brushed Brass Arc Lamp", "price": "$380", "category": "Lighting", "rating": 4.88, "badge": "Limited Edition", "image": "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600&auto=format&fit=crop&q=80"}),
+                    ]),
+                ]
+            )],
+            current_page_id="furniture-catalog"
+        )
+        return {"operation_type": "CREATE_UI", "ui_spec": spec.model_dump(), "explanation": "Created architectural furniture studio with interactive 3D WebGL inspection and product catalog."}
+
+    async def _cinematic_portfolio(self, prompt: str, current_spec, project_id: str) -> dict:
+        spec = UISpecification(
+            project_id=project_id,
+            title="STUDIO NEXUS — Cinematic & Interactive Portfolio",
+            theme=ThemeSpec(mode="dark", primary="#EAAA00", secondary="#3A0F34"),
+            pages=[PageSpec(
+                id="portfolio-home",
+                title="Selected Works",
+                layout="grid",
+                components=[
+                    ComponentSpec(id="p-nav", type="navigation", props={"title": "STUDIO NEXUS // DIRECTION", "items": [{"label": "3D Sculpture Lab", "page_id": "portfolio-home", "icon": "sparkles"}, {"label": "Selected Works", "page_id": "portfolio-home", "icon": "book"}, {"label": "Contact", "page_id": "portfolio-home", "icon": "mail"}]}),
+                    ComponentSpec(id="p-head", type="heading", props={"level": 1, "text": "Cinematic Visuals & Generative Direction", "subtext": "Exploring the nexus of real-time 3D WebGL computation and narrative spatial design."}),
+                    ComponentSpec(id="p-3d", type="scene-3d", props={"model": "portfolio", "height": 440, "title": "Kinetic Sculpture: 'Perpetual Geometry 04'", "subtitle": "Procedural Torus Knot with gyroscopic stabilizers • Orbit with mouse", "accentColor": "#EAAA00"}),
+                    ComponentSpec(id="p-metrics", type="grid", props={"columns": 4}, children=[
+                        ComponentSpec(id="m1", type="metric-card", props={"title": "Awwwards Site of the Year", "value": "14 Trophies", "change": "Jury Consensus", "trend": "up", "icon": "star"}),
+                        ComponentSpec(id="m2", type="metric-card", props={"title": "Audience Reach", "value": "4.8M Viewers", "change": "+142% engagement", "trend": "up", "icon": "activity"}),
+                        ComponentSpec(id="m3", type="metric-card", props={"title": "Realtime FPS", "value": "120 FPS", "change": "Zero frame drop", "trend": "up", "icon": "zap"}),
+                        ComponentSpec(id="m4", type="metric-card", props={"title": "Design Accolades", "value": "28 Awards", "change": "FWA & D&AD", "trend": "up", "icon": "target"}),
+                    ]),
+                ]
+            )],
+            current_page_id="portfolio-home"
+        )
+        return {"operation_type": "CREATE_UI", "ui_spec": spec.model_dump(), "explanation": "Generated cinematic portfolio with interactive 3D kinetic sculpture and project metrics."}
+
+    async def _restaurant_booking(self, prompt: str, current_spec, project_id: str) -> dict:
+        spec = UISpecification(
+            project_id=project_id,
+            title="L’ATELIER — Modern Gastronomy & Reserve",
+            theme=ThemeSpec(mode="dark", primary="#EAAA00", secondary="#3A0F34"),
+            pages=[PageSpec(
+                id="dining-home",
+                title="Dining & Reserve",
+                layout="grid",
+                components=[
+                    ComponentSpec(id="r-nav", type="navigation", props={"title": "L’ATELIER GOURMET", "items": [{"label": "Menu & Tasting", "page_id": "dining-home", "icon": "utensils"}, {"label": "Wine Cellar", "page_id": "dining-home", "icon": "coffee"}, {"label": "Reservations", "page_id": "dining-home", "icon": "calendar"}]}),
+                    ComponentSpec(id="r-hero", type="hero-banner", props={"badge": "Two Michelin Stars", "title": "Artisanal Gastronomy & Seasonal Degustation", "subtitle": "Biodynamic local produce meets contemporary French innovation.", "ctaLabel": "Reserve Table Below"}),
+                    ComponentSpec(id="r-menu-grid", type="grid", props={"columns": 2}, children=[
+                        ComponentSpec(id="dish-1", type="menu-item", props={"title": "Black Truffle & Chanterelle Tagliolini", "price": "$38", "description": "Hand-rolled egg yolk pasta, 36-month aged Parmigiano Reggiano emulsion.", "tags": ["Signature", "Handmade"]}),
+                        ComponentSpec(id="dish-2", type="menu-item", props={"title": "Wood-Fired A5 Miyazaki Wagyu Ribeye", "price": "$74", "description": "Binchotan charcoal seared, smoked bone marrow reduction, charred baby leeks.", "tags": ["Chef Special", "A5 Wagyu"]}),
+                    ]),
+                    ComponentSpec(id="r-form-head", type="heading", props={"level": 2, "text": "Reserve Your Dining Experience", "subtext": "Reservations available up to 60 days in advance."}),
+                    ComponentSpec(id="r-booking-form", type="form", props={"id": "reserve-form"}, children=[
+                        ComponentSpec(id="f-name", type="text-input", props={"name": "guest_name", "label": "Full Name", "placeholder": "Marcus Vance", "required": True}),
+                        ComponentSpec(id="f-email", type="email-input", props={"name": "guest_email", "label": "Email Address", "placeholder": "marcus@domain.com", "required": True}),
+                        ComponentSpec(id="f-party", type="select", props={"name": "guests", "label": "Party Size", "options": ["2 Guests — Main Dining", "4 Guests — Banquette", "6+ Private Dining"]}),
+                        ComponentSpec(id="f-date", type="text-input", props={"name": "date_time", "label": "Preferred Date & Time", "placeholder": "Friday, Nov 14 at 7:30 PM", "required": True}),
+                        ComponentSpec(id="f-submit", type="button", props={"label": "Confirm Table Reservation", "variant": "primary", "full_width": True}, action_id="form.submit_demo"),
+                    ]),
+                ]
+            )],
+            current_page_id="dining-home"
+        )
+        return {"operation_type": "CREATE_UI", "ui_spec": spec.model_dump(), "explanation": "Created restaurant website with culinary menu and table reservation form."}
+
+    async def _futuristic_landing(self, prompt: str, current_spec, project_id: str) -> dict:
+        spec = UISpecification(
+            project_id=project_id,
+            title="SYNAPSE QUANTUM // Autonomous Neural Processor",
+            theme=ThemeSpec(mode="dark", primary="#EAAA00", secondary="#3A0F34"),
+            pages=[PageSpec(
+                id="quantum-home",
+                title="Quantum Silicon",
+                layout="grid",
+                components=[
+                    ComponentSpec(id="q-nav", type="navigation", props={"title": "SYNAPSE // QUANTUM", "items": [{"label": "3D Hardware", "page_id": "quantum-home", "icon": "zap"}, {"label": "Benchmarks", "page_id": "quantum-home", "icon": "activity"}, {"label": "Order Kit", "page_id": "quantum-home", "icon": "shopping-bag"}]}),
+                    ComponentSpec(id="q-hero", type="hero-banner", props={"badge": "Silicon Quantum V9 • 3nm", "title": "Ambient Intelligence Accelerated at Quantum Scale", "subtitle": "Photon-coupled neural processor delivering 4,800 TOPS of localized AI inference at 12 Watts.", "ctaLabel": "Reserve Developer Kit"}),
+                    ComponentSpec(id="q-3d", type="scene-3d", props={"model": "product", "height": 420, "title": "Synapse V9 Hardware Hologram", "subtitle": "Interactive WebGL orbit • Inspect optical channels", "accentColor": "#EAAA00"}),
+                    ComponentSpec(id="q-specs", type="grid", props={"columns": 4}, children=[
+                        ComponentSpec(id="s1", type="metric-card", props={"title": "Inference Compute", "value": "4,800 TOPS", "change": "4.2x speedup", "trend": "up", "icon": "zap"}),
+                        ComponentSpec(id="s2", type="metric-card", props={"title": "Energy Draw", "value": "12 Watts", "change": "-68% reduction", "trend": "down", "icon": "flame"}),
+                        ComponentSpec(id="s3", type="metric-card", props={"title": "Memory Bus", "value": "2.4 TB/s", "change": "HBM3e Stack", "trend": "up", "icon": "target"}),
+                        ComponentSpec(id="s4", type="metric-card", props={"title": "Waveguide Latency", "value": "0.18 μs", "change": "Zero jitter", "trend": "up", "icon": "activity"}),
+                    ]),
+                ]
+            )],
+            current_page_id="quantum-home"
+        )
+        return {"operation_type": "CREATE_UI", "ui_spec": spec.model_dump(), "explanation": "Built futuristic quantum tech landing page with 3D cybernetic model and hardware specifications."}
 
     async def _generic_response(self, prompt: str, current_spec, project_id: str) -> dict:
         explanation = (
